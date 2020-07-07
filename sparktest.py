@@ -11,9 +11,9 @@ spark = SparkSession \
 jdbcDF = spark.read \
     .format("jdbc") \
     .option("url", "jdbc:postgresql://master:5432/projectdw") \
-    .option("dbtable", "") \
-    .option("user", "client_hiring_dt") \
-    .option("password", "") \
+    .option("dbtable", "client_hiring_dt") \
+    .option("user", "postgres") \
+    .option("password", "123") \
     .load()
 
 # Print the schema of the DataFrame
