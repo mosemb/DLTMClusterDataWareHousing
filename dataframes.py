@@ -31,7 +31,7 @@ dfFact.printSchema()
 dfBio.groupBy('service_branch__c').count().show()
 
 #Types of jobs the guys got hired in
-dfM.groupBy('job_function_hired_in__c').count().show()
+dfHire.groupBy('job_function_hired_in__c').count().show()
 
 #Temporary objects from which sql statements are run for each dataframe
 dfHire.createOrReplaceTempView("dfHire_sql")
@@ -54,19 +54,21 @@ spark.sql(''' Select hires.hired, bio.service_rank__c ,
               ''').show()
 
 #Account create date by month of the year
-spark.sql( """SELECT count(id) , 
-              Extract(Month From create_ddate) as month 
-              From  dfAct_sql  
-              group by month 
-              ORDER BY month ASC """).show()
+spark.sql( """ SELECT count(id) as count , 
+               month(create_ddate) as month 
+               from  dfAct_sql  
+               group by month
+               order by count			   
+            """).show()
+			
 
 
 #Registration for services by year
 spark.sql( """SELECT count(id) , 
-Extract(Year From create_ddate) as year_registered 
+              year(create_ddate) as year_registered 
               From  dfAct_sql  
               group by year_registered
-              ORDER BY year_registered ASC """).show()
+              ORDER BY year_registered  """).show()
 
 #Hired by Service branch
 spark.sql(""" Select count(hires.id) as hired,bio.service_branch__c 
@@ -112,3 +114,6 @@ spark.sql(""" select count(com.id) as count, com.preferred_method_of_contact__c
               group by com.preferred_method_of_contact__c 
               order by count
           """).show()
+
+# Stop session.
+spark.stop()
