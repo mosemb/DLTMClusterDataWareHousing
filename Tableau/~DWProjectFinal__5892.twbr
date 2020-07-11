@@ -1277,6 +1277,9 @@
       <column caption='hired_string' datatype='string' name='[Calculation_368169271551799298]' role='dimension' type='nominal'>
         <calculation class='tableau' formula='CASE [hired] &#13;&#10;     WHEN 1 THEN &apos;Hired&apos;&#13;&#10;     WHEN 0 THEN &apos;Not Hired&apos;&#13;&#10;     WHEN 3 THEN &apos;NOT A CLIENT&apos;&#13;&#10;END' />
       </column>
+      <column datatype='integer' name='[Datdifconfirstart (bin)]' role='dimension' type='quantitative'>
+        <calculation class='bin' decimals='4' formula='[datdifconfirstart]' peg='0' size='37190' />
+      </column>
       <_.fcp.ObjectModelTableType.true...column caption='client_activities_dt' datatype='table' name='[__tableau_internal_object_id__].[client!activities!dt_1A5DA18B1CD94BD4B0364626A3F68FD1]' role='measure' type='quantitative' />
       <_.fcp.ObjectModelTableType.true...column caption='client_bio_dt' datatype='table' name='[__tableau_internal_object_id__].[client!bio!dt_DD6C7840523E4F008CDB74A929A21BBB]' role='measure' type='quantitative' />
       <_.fcp.ObjectModelTableType.true...column caption='client_communication_dt' datatype='table' name='[__tableau_internal_object_id__].[client!communication!dt_3964A107BF0F4CE59056F1B5498DE17B]' role='measure' type='quantitative' />
@@ -1886,7 +1889,14 @@
           </shelf-sorts>
           <aggregation value='true' />
         </view>
-        <style />
+        <style>
+          <style-rule element='axis'>
+            <format attr='height' field='[federated.1xsytd21g7vnxy175364807stku8].[__tableau_internal_object_id__].[cnt:client!hiring!dt_A7A4101871104E79864A1EF54047295E:qk]' value='39' />
+          </style-rule>
+          <style-rule element='cell'>
+            <format attr='height' field='[federated.1xsytd21g7vnxy175364807stku8].[none:Calculation_368169271551799298:nk]' value='41' />
+          </style-rule>
+        </style>
         <panes>
           <pane selection-relaxation-option='selection-relaxation-allow'>
             <view>
@@ -1896,6 +1906,10 @@
             <style>
               <style-rule element='mark'>
                 <format attr='mark-labels-show' value='false' />
+              </style-rule>
+              <style-rule element='pane'>
+                <format attr='minheight' value='-1' />
+                <format attr='maxheight' value='-1' />
               </style-rule>
             </style>
           </pane>
@@ -2256,6 +2270,53 @@
         <cols>[federated.1xsytd21g7vnxy175364807stku8].[__tableau_internal_object_id__].[cnt:client!hiring!dt_A7A4101871104E79864A1EF54047295E:qk]</cols>
       </table>
       <simple-id uuid='{A1E8778C-624E-4132-855A-0E3C7951751F}' />
+    </worksheet>
+    <worksheet name='Hire_Infor2'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run bold='true' fontalignment='1'>Hired.</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='client_fact_ft (Multiple Connections)' name='federated.1xsytd21g7vnxy175364807stku8' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1xsytd21g7vnxy175364807stku8'>
+            <_.fcp.ObjectModelTableType.false...column caption='client_hiring_dt' datatype='integer' name='[__tableau_internal_object_id__].[client!hiring!dt_A7A4101871104E79864A1EF54047295E]' role='measure' type='quantitative' />
+            <column caption='hired_string' datatype='string' name='[Calculation_368169271551799298]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='CASE [hired] &#13;&#10;     WHEN 1 THEN &apos;Hired&apos;&#13;&#10;     WHEN 0 THEN &apos;Not Hired&apos;&#13;&#10;     WHEN 3 THEN &apos;NOT A CLIENT&apos;&#13;&#10;END' />
+            </column>
+            <_.fcp.ObjectModelTableType.true...column caption='client_hiring_dt' datatype='table' name='[__tableau_internal_object_id__].[client!hiring!dt_A7A4101871104E79864A1EF54047295E]' role='measure' type='quantitative' />
+            <column-instance column='[__tableau_internal_object_id__].[client!hiring!dt_A7A4101871104E79864A1EF54047295E]' derivation='Count' name='[__tableau_internal_object_id__].[cnt:client!hiring!dt_A7A4101871104E79864A1EF54047295E:qk]' pivot='key' type='quantitative' />
+            <column caption='Hired' datatype='integer' name='[hired]' role='measure' type='quantitative' />
+            <column-instance column='[Calculation_368169271551799298]' derivation='None' name='[none:Calculation_368169271551799298:nk]' pivot='key' type='nominal' />
+          </datasource-dependencies>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.1xsytd21g7vnxy175364807stku8].[none:Calculation_368169271551799298:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.1xsytd21g7vnxy175364807stku8].[__tableau_internal_object_id__].[cnt:client!hiring!dt_A7A4101871104E79864A1EF54047295E:qk]' shelf='rows' />
+          </shelf-sorts>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='false' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1xsytd21g7vnxy175364807stku8].[none:Calculation_368169271551799298:nk]</rows>
+        <cols>[federated.1xsytd21g7vnxy175364807stku8].[__tableau_internal_object_id__].[cnt:client!hiring!dt_A7A4101871104E79864A1EF54047295E:qk]</cols>
+      </table>
+      <simple-id uuid='{B5B6D500-DEAF-44DD-82C3-1A16CDE395B8}' />
     </worksheet>
     <worksheet name='Hires'>
       <layout-options>
@@ -2757,6 +2818,61 @@
       </table>
       <simple-id uuid='{19BADDA5-3463-4633-802D-6CC1BB8B2DE6}' />
     </worksheet>
+    <worksheet name='Sheet 24'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='client_fact_ft (Multiple Connections)' name='federated.1xsytd21g7vnxy175364807stku8' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1xsytd21g7vnxy175364807stku8'>
+            <column caption='Client Hiring Dt Id (Client!Hiring!Dt)' datatype='string' name='[client_hiring_dt_id (client!hiring!dt)]' role='dimension' type='nominal' />
+            <column caption='Datdifconfirstart' datatype='integer' name='[datdifconfirstart]' role='measure' type='quantitative' />
+            <column caption='Difsubmitconfirmed' datatype='integer' name='[difsubmitconfirmed]' role='measure' type='quantitative' />
+            <column-instance column='[client_hiring_dt_id (client!hiring!dt)]' derivation='None' name='[none:client_hiring_dt_id (client!hiring!dt):nk]' pivot='key' type='nominal' />
+            <column-instance column='[datdifconfirstart]' derivation='Sum' name='[sum:datdifconfirstart:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[difsubmitconfirmed]' derivation='Sum' name='[sum:difsubmitconfirmed:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='refline'>
+            <format attr='stroke-color' id='refline0' value='#000000' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <lod column='[federated.1xsytd21g7vnxy175364807stku8].[none:client_hiring_dt_id (client!hiring!dt):nk]' />
+            </encodings>
+          </pane>
+          <pane id='1' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1xsytd21g7vnxy175364807stku8].[sum:datdifconfirstart:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <lod column='[federated.1xsytd21g7vnxy175364807stku8].[none:client_hiring_dt_id (client!hiring!dt):nk]' />
+            </encodings>
+          </pane>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1xsytd21g7vnxy175364807stku8].[sum:difsubmitconfirmed:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <lod column='[federated.1xsytd21g7vnxy175364807stku8].[none:client_hiring_dt_id (client!hiring!dt):nk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>([federated.1xsytd21g7vnxy175364807stku8].[sum:datdifconfirstart:qk] + [federated.1xsytd21g7vnxy175364807stku8].[sum:difsubmitconfirmed:qk])</rows>
+        <cols />
+      </table>
+      <simple-id uuid='{673CA0C1-B04B-4FEB-97BE-A781FD8C120A}' />
+    </worksheet>
   </worksheets>
   <dashboards>
     <dashboard name='Communication Dashboard'>
@@ -3123,14 +3239,6 @@
         <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='4' w='100000' x='0' y='0'>
           <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='7' param='horz' w='98400' x='800' y='1000'>
             <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='98000' id='5' w='82400' x='800' y='1000'>
-              <zone h='49000' id='3' name='Employment by gender' w='41200' x='800' y='1000'>
-                <zone-style>
-                  <format attr='border-color' value='#000000' />
-                  <format attr='border-style' value='none' />
-                  <format attr='border-width' value='0' />
-                  <format attr='margin' value='4' />
-                </zone-style>
-              </zone>
               <zone h='49000' id='9' name='Hires by service branch' w='41200' x='42000' y='1000'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
@@ -3147,9 +3255,7 @@
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-            </zone>
-            <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' fixed-size='160' h='98000' id='6' is-fixed='true' param='vert' w='16000' x='83200' y='1000'>
-              <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='2750' id='8' name='Employment by gender' pane-specification-id='0' param='[federated.1xsytd21g7vnxy175364807stku8].[none:gender__c:nk]' w='16000' x='83200' y='1000'>
+              <zone h='49000' id='18' name='Employment by gender' w='41200' x='800' y='1000'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -3157,7 +3263,9 @@
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='2750' id='11' name='Hire satisfaction' pane-specification-id='0' param='[federated.1xsytd21g7vnxy175364807stku8].[none:Calculation_368169271551799298:nk]' w='16000' x='83200' y='3750'>
+            </zone>
+            <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' fixed-size='160' h='98000' id='6' is-fixed='true' param='vert' w='16000' x='83200' y='1000'>
+              <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='2750' id='11' name='Hire satisfaction' pane-specification-id='0' param='[federated.1xsytd21g7vnxy175364807stku8].[none:Calculation_368169271551799298:nk]' w='16000' x='83200' y='1000'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -3181,24 +3289,6 @@
           <zones>
             <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='17' w='100000' x='0' y='0'>
               <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='16' param='vert' w='98400' x='800' y='1000'>
-                <zone fixed-size='280' h='49000' id='3' is-fixed='true' name='Employment by gender' w='41200' x='800' y='1000'>
-                  <zone-style>
-                    <format attr='border-color' value='#000000' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                  </zone-style>
-                </zone>
-                <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='2750' id='8' name='Employment by gender' pane-specification-id='0' param='[federated.1xsytd21g7vnxy175364807stku8].[none:gender__c:nk]' w='16000' x='83200' y='1000'>
-                  <zone-style>
-                    <format attr='border-color' value='#000000' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                  </zone-style>
-                </zone>
                 <zone fixed-size='280' h='49000' id='9' is-fixed='true' name='Hires by service branch' w='41200' x='42000' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -3559,7 +3649,7 @@
       </cards>
       <simple-id uuid='{66261402-C78B-4CF3-94D6-8651DDDF80EF}' />
     </window>
-    <window class='worksheet' maximized='true' name='Service branch emp by gender'>
+    <window class='worksheet' name='Service branch emp by gender'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -3953,6 +4043,29 @@
       </cards>
       <simple-id uuid='{E1DB5457-41E6-4B63-A432-DDD18502F321}' />
     </window>
+    <window class='worksheet' name='Hire_Infor2'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{61A90B43-C561-42F5-81F2-4B9FB74AE447}' />
+    </window>
     <window class='worksheet' name='Hire satisfaction'>
       <cards>
         <edge name='left'>
@@ -4032,7 +4145,7 @@
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='6' />
+      <active id='-1' />
       <simple-id uuid='{77CF773B-987B-41DF-B280-15E196A13562}' />
     </window>
     <window class='worksheet' name='Reg for services by branch'>
@@ -4131,6 +4244,29 @@
         </edge>
       </cards>
       <simple-id uuid='{8F07AED5-D6C3-47A8-B888-5E97CAA943C0}' />
+    </window>
+    <window class='worksheet' maximized='true' name='Sheet 24'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{37AE98B3-9511-4F95-83AA-3AA84A3C4F17}' />
     </window>
   </windows>
 </workbook>
