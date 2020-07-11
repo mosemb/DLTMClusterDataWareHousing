@@ -9,6 +9,7 @@
     <_.fcp.MarkAnimation.true...MarkAnimation />
     <_.fcp.ObjectModelEncapsulateLegacy.true...ObjectModelEncapsulateLegacy />
     <_.fcp.ObjectModelTableType.true...ObjectModelTableType />
+    <SavingAnalyticObjects />
     <_.fcp.SchemaViewerObjectModel.true...SchemaViewerObjectModel />
     <_.fcp.SetMembershipControl.true...SetMembershipControl />
     <SheetIdentifierTracking />
@@ -1348,6 +1349,8 @@
       <column caption='Startdate' datatype='string' name='[startdate]' role='dimension' type='nominal' />
       <column caption='Status__C' datatype='string' name='[status__c]' role='dimension' type='nominal' />
       <column caption='Yearsinservice' datatype='real' name='[yearsinservice]' role='measure' type='quantitative' />
+      <column-instance column='[reg_afterservice_years]' derivation='Avg' name='[avg:reg_afterservice_years:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[yearsinservice]' derivation='Avg' name='[avg:yearsinservice:qk]' pivot='key' type='quantitative' />
       <column-instance column='[gender__c]' derivation='None' name='[none:gender__c:nk]' pivot='key' type='nominal' />
       <drill-paths>
         <drill-path name='mailingcountry, mailingpostalcode'>
@@ -1372,11 +1375,133 @@
               <bucket>&quot;Female&quot;</bucket>
             </map>
           </encoding>
+          <encoding attr='color' field='[none:AdhocCluster:3:ok]' type='palette'>
+            <map to='#499894'>
+              <bucket>9</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>1</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>21</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>5</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>25</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>13</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>10</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>6</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>19</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>2</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>22</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>17</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>7</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>14</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>15</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>18</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>20</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>11</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>8</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>3</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>23</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>16</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>12</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>4</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>24</bucket>
+            </map>
+          </encoding>
         </style-rule>
       </style>
       <semantic-values>
         <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
       </semantic-values>
+      <analytic-model>
+        <name>
+          <field name='[AnalyticModel:{045b055b-9a0d-4ac1-a5da-dc3a719b720d}]' />
+        </name>
+        <analytic-model-specifications class='cluster-specifications'>
+          <analysis-fields>
+            <field name='[federated.1xsytd21g7vnxy175364807stku8].[avg:reg_afterservice_years:qk]' />
+          </analysis-fields>
+          <filter-fields />
+          <lod-fields />
+          <number-of-desired-clusters>0</number-of-desired-clusters>
+          <is-dissagregate>false</is-dissagregate>
+        </analytic-model-specifications>
+        <result-fields />
+      </analytic-model>
+      <analytic-model>
+        <name>
+          <field name='[AnalyticModel:{5f759457-71a1-4b2d-98dd-48095857ca9e}]' />
+        </name>
+        <analytic-model-specifications class='cluster-specifications'>
+          <analysis-fields>
+            <field name='[federated.1xsytd21g7vnxy175364807stku8].[avg:yearsinservice:qk]' />
+          </analysis-fields>
+          <filter-fields />
+          <lod-fields />
+          <number-of-desired-clusters>4</number-of-desired-clusters>
+          <is-dissagregate>false</is-dissagregate>
+        </analytic-model-specifications>
+        <result-fields />
+      </analytic-model>
+      <analytic-model>
+        <name>
+          <field name='[AnalyticModel:{98bba91e-7872-4dac-a73b-9dc74e3f0777}]' />
+        </name>
+        <analytic-model-specifications class='cluster-specifications'>
+          <analysis-fields>
+            <field name='[federated.1xsytd21g7vnxy175364807stku8].[avg:reg_afterservice_years:qk]' />
+          </analysis-fields>
+          <filter-fields />
+          <lod-fields />
+          <number-of-desired-clusters>0</number-of-desired-clusters>
+          <is-dissagregate>false</is-dissagregate>
+        </analytic-model-specifications>
+        <result-fields />
+      </analytic-model>
       <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
         <objects>
           <object caption='client_activities_dt' id='client!activities!dt_1A5DA18B1CD94BD4B0364626A3F68FD1'>
@@ -1575,6 +1700,122 @@
         <cols>[federated.1xsytd21g7vnxy175364807stku8].[avg:reg_afterservice_years:qk]</cols>
       </table>
       <simple-id uuid='{C1A277B3-798D-4EE2-9061-9F697EEDC646}' />
+    </worksheet>
+    <worksheet name='Average time service men register for services (2)'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run bold='true' fontalignment='1'>Average years when service men register for employment services clusters. </run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='client_fact_ft (Multiple Connections)' name='federated.1xsytd21g7vnxy175364807stku8' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1xsytd21g7vnxy175364807stku8'>
+            <column auto-hidden='true' caption='Clusters (1)' datatype='integer' hidden='true' is-adhoc-cluster='true' name='[AdhocCluster:2]' parent-model='[AnalyticModel:{98bba91e-7872-4dac-a73b-9dc74e3f0777}]' role='dimension' type='ordinal'>
+              <aliases>
+                <alias key='-1' value='Cluster Outliers' />
+                <alias key='0' value='Not Clustered' />
+                <alias key='1' value='Cluster 1' />
+                <alias key='2' value='Cluster 2' />
+                <alias key='3' value='Cluster 3' />
+                <alias key='4' value='Cluster 4' />
+                <alias key='5' value='Cluster 5' />
+                <alias key='6' value='Cluster 6' />
+                <alias key='7' value='Cluster 7' />
+                <alias key='8' value='Cluster 8' />
+                <alias key='9' value='Cluster 9' />
+                <alias key='10' value='Cluster 10' />
+                <alias key='11' value='Cluster 11' />
+                <alias key='12' value='Cluster 12' />
+                <alias key='13' value='Cluster 13' />
+                <alias key='14' value='Cluster 14' />
+                <alias key='15' value='Cluster 15' />
+                <alias key='16' value='Cluster 16' />
+                <alias key='17' value='Cluster 17' />
+                <alias key='18' value='Cluster 18' />
+                <alias key='19' value='Cluster 19' />
+                <alias key='20' value='Cluster 20' />
+                <alias key='21' value='Cluster 21' />
+                <alias key='22' value='Cluster 22' />
+                <alias key='23' value='Cluster 23' />
+                <alias key='24' value='Cluster 24' />
+                <alias key='25' value='Cluster 25' />
+                <alias key='26' value='Cluster 26' />
+                <alias key='27' value='Cluster 27' />
+                <alias key='28' value='Cluster 28' />
+                <alias key='29' value='Cluster 29' />
+                <alias key='30' value='Cluster 30' />
+                <alias key='31' value='Cluster 31' />
+                <alias key='32' value='Cluster 32' />
+                <alias key='33' value='Cluster 33' />
+                <alias key='34' value='Cluster 34' />
+                <alias key='35' value='Cluster 35' />
+                <alias key='36' value='Cluster 36' />
+                <alias key='37' value='Cluster 37' />
+                <alias key='38' value='Cluster 38' />
+                <alias key='39' value='Cluster 39' />
+                <alias key='40' value='Cluster 40' />
+                <alias key='41' value='Cluster 41' />
+                <alias key='42' value='Cluster 42' />
+                <alias key='43' value='Cluster 43' />
+                <alias key='44' value='Cluster 44' />
+                <alias key='45' value='Cluster 45' />
+                <alias key='46' value='Cluster 46' />
+                <alias key='47' value='Cluster 47' />
+                <alias key='48' value='Cluster 48' />
+                <alias key='49' value='Cluster 49' />
+                <alias key='50' value='Cluster 50' />
+              </aliases>
+            </column>
+            <column-instance column='[reg_afterservice_years]' derivation='Avg' name='[avg:reg_afterservice_years:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[AdhocCluster:2]' derivation='None' is-adhoc-cluster='true' name='[none:AdhocCluster:2:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[reg_afterservice_years]' derivation='None' name='[none:reg_afterservice_years:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[service_rank__c]' derivation='None' name='[none:service_rank__c:nk]' pivot='key' type='nominal' />
+            <column caption='Reg Afterservice Years' datatype='real' name='[reg_afterservice_years]' role='measure' type='quantitative' />
+            <column caption='Service_Rank__C' datatype='string' name='[service_rank__c]' role='dimension' type='nominal' />
+            <style />
+          </datasource-dependencies>
+          <filter class='quantitative' column='[federated.1xsytd21g7vnxy175364807stku8].[none:reg_afterservice_years:qk]' included-values='in-range'>
+            <min>-53.0</min>
+            <max>53.0</max>
+          </filter>
+          <filter class='categorical' column='[federated.1xsytd21g7vnxy175364807stku8].[none:service_rank__c:nk]'>
+            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:service_rank__c:nk]' member='%null%' />
+              <groupfilter from='&quot;CW-2&quot;' function='range' level='[none:service_rank__c:nk]' to='&quot;E-9&quot;' />
+              <groupfilter function='member' level='[none:service_rank__c:nk]' member='&quot;O-1&quot;' />
+              <groupfilter from='&quot;O-2&quot;' function='range' level='[none:service_rank__c:nk]' to='&quot;W-5&quot;' />
+            </groupfilter>
+          </filter>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.1xsytd21g7vnxy175364807stku8].[none:service_rank__c:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.1xsytd21g7vnxy175364807stku8].[avg:reg_afterservice_years:qk]' shelf='rows' />
+          </shelf-sorts>
+          <slices>
+            <column>[federated.1xsytd21g7vnxy175364807stku8].[none:reg_afterservice_years:qk]</column>
+            <column>[federated.1xsytd21g7vnxy175364807stku8].[none:service_rank__c:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1xsytd21g7vnxy175364807stku8].[none:AdhocCluster:2:ok]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.1xsytd21g7vnxy175364807stku8].[none:service_rank__c:nk]</rows>
+        <cols>[federated.1xsytd21g7vnxy175364807stku8].[avg:reg_afterservice_years:qk]</cols>
+      </table>
+      <simple-id uuid='{898E0241-B35B-4F2B-A990-F5A11C3818A5}' />
     </worksheet>
     <worksheet name='Average years in service'>
       <layout-options>
@@ -2741,6 +2982,193 @@
       </table>
       <simple-id uuid='{E3192C4B-D17A-44FE-838B-F8E23E6653FF}' />
     </worksheet>
+    <worksheet name='Service rank Vs Years in service. (2)'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run bold='true' fontalignment='1'>Average duration in the army by service rank clusters. </run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='client_fact_ft (Multiple Connections)' name='federated.1xsytd21g7vnxy175364807stku8' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1xsytd21g7vnxy175364807stku8'>
+            <column auto-hidden='true' caption='Clusters (2)' datatype='integer' hidden='true' is-adhoc-cluster='true' name='[AdhocCluster:3]' parent-model='[AnalyticModel:{5f759457-71a1-4b2d-98dd-48095857ca9e}]' role='dimension' type='ordinal'>
+              <aliases>
+                <alias key='-1' value='Cluster Outliers' />
+                <alias key='0' value='Not Clustered' />
+                <alias key='1' value='Cluster 1' />
+                <alias key='2' value='Cluster 2' />
+                <alias key='3' value='Cluster 3' />
+                <alias key='4' value='Cluster 4' />
+                <alias key='5' value='Cluster 5' />
+                <alias key='6' value='Cluster 6' />
+                <alias key='7' value='Cluster 7' />
+                <alias key='8' value='Cluster 8' />
+                <alias key='9' value='Cluster 9' />
+                <alias key='10' value='Cluster 10' />
+                <alias key='11' value='Cluster 11' />
+                <alias key='12' value='Cluster 12' />
+                <alias key='13' value='Cluster 13' />
+                <alias key='14' value='Cluster 14' />
+                <alias key='15' value='Cluster 15' />
+                <alias key='16' value='Cluster 16' />
+                <alias key='17' value='Cluster 17' />
+                <alias key='18' value='Cluster 18' />
+                <alias key='19' value='Cluster 19' />
+                <alias key='20' value='Cluster 20' />
+                <alias key='21' value='Cluster 21' />
+                <alias key='22' value='Cluster 22' />
+                <alias key='23' value='Cluster 23' />
+                <alias key='24' value='Cluster 24' />
+                <alias key='25' value='Cluster 25' />
+                <alias key='26' value='Cluster 26' />
+                <alias key='27' value='Cluster 27' />
+                <alias key='28' value='Cluster 28' />
+                <alias key='29' value='Cluster 29' />
+                <alias key='30' value='Cluster 30' />
+                <alias key='31' value='Cluster 31' />
+                <alias key='32' value='Cluster 32' />
+                <alias key='33' value='Cluster 33' />
+                <alias key='34' value='Cluster 34' />
+                <alias key='35' value='Cluster 35' />
+                <alias key='36' value='Cluster 36' />
+                <alias key='37' value='Cluster 37' />
+                <alias key='38' value='Cluster 38' />
+                <alias key='39' value='Cluster 39' />
+                <alias key='40' value='Cluster 40' />
+                <alias key='41' value='Cluster 41' />
+                <alias key='42' value='Cluster 42' />
+                <alias key='43' value='Cluster 43' />
+                <alias key='44' value='Cluster 44' />
+                <alias key='45' value='Cluster 45' />
+                <alias key='46' value='Cluster 46' />
+                <alias key='47' value='Cluster 47' />
+                <alias key='48' value='Cluster 48' />
+                <alias key='49' value='Cluster 49' />
+                <alias key='50' value='Cluster 50' />
+              </aliases>
+            </column>
+            <column-instance column='[yearsinservice]' derivation='Avg' name='[avg:yearsinservice:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[AdhocCluster:3]' derivation='None' is-adhoc-cluster='true' name='[none:AdhocCluster:3:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[service_rank__c]' derivation='None' name='[none:service_rank__c:nk]' pivot='key' type='nominal' />
+            <column-instance column='[yearsinservice]' derivation='None' name='[none:yearsinservice:qk]' pivot='key' type='quantitative' />
+            <column caption='Service_Rank__C' datatype='string' name='[service_rank__c]' role='dimension' type='nominal' />
+            <column caption='Yearsinservice' datatype='real' name='[yearsinservice]' role='measure' type='quantitative' />
+            <style>
+              <style-rule element='mark'>
+                <encoding attr='color' field='[none:AdhocCluster:3:ok]' type='palette'>
+                  <map to='#499894'>
+                    <bucket>9</bucket>
+                  </map>
+                  <map to='#4e79a7'>
+                    <bucket>1</bucket>
+                  </map>
+                  <map to='#4e79a7'>
+                    <bucket>21</bucket>
+                  </map>
+                  <map to='#59a14f'>
+                    <bucket>5</bucket>
+                  </map>
+                  <map to='#59a14f'>
+                    <bucket>25</bucket>
+                  </map>
+                  <map to='#79706e'>
+                    <bucket>13</bucket>
+                  </map>
+                  <map to='#86bcb6'>
+                    <bucket>10</bucket>
+                  </map>
+                  <map to='#8cd17d'>
+                    <bucket>6</bucket>
+                  </map>
+                  <map to='#9d7660'>
+                    <bucket>19</bucket>
+                  </map>
+                  <map to='#a0cbe8'>
+                    <bucket>2</bucket>
+                  </map>
+                  <map to='#a0cbe8'>
+                    <bucket>22</bucket>
+                  </map>
+                  <map to='#b07aa1'>
+                    <bucket>17</bucket>
+                  </map>
+                  <map to='#b6992d'>
+                    <bucket>7</bucket>
+                  </map>
+                  <map to='#bab0ac'>
+                    <bucket>14</bucket>
+                  </map>
+                  <map to='#d37295'>
+                    <bucket>15</bucket>
+                  </map>
+                  <map to='#d4a6c8'>
+                    <bucket>18</bucket>
+                  </map>
+                  <map to='#d7b5a6'>
+                    <bucket>20</bucket>
+                  </map>
+                  <map to='#e15759'>
+                    <bucket>11</bucket>
+                  </map>
+                  <map to='#f1ce63'>
+                    <bucket>8</bucket>
+                  </map>
+                  <map to='#f28e2b'>
+                    <bucket>3</bucket>
+                  </map>
+                  <map to='#f28e2b'>
+                    <bucket>23</bucket>
+                  </map>
+                  <map to='#fabfd2'>
+                    <bucket>16</bucket>
+                  </map>
+                  <map to='#ff9d9a'>
+                    <bucket>12</bucket>
+                  </map>
+                  <map to='#ffbe7d'>
+                    <bucket>4</bucket>
+                  </map>
+                  <map to='#ffbe7d'>
+                    <bucket>24</bucket>
+                  </map>
+                </encoding>
+              </style-rule>
+            </style>
+          </datasource-dependencies>
+          <filter class='quantitative' column='[federated.1xsytd21g7vnxy175364807stku8].[none:yearsinservice:qk]' included-values='in-range'>
+            <min>0.0</min>
+            <max>53.0</max>
+          </filter>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.1xsytd21g7vnxy175364807stku8].[none:service_rank__c:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.1xsytd21g7vnxy175364807stku8].[avg:yearsinservice:qk]' shelf='rows' />
+          </shelf-sorts>
+          <slices>
+            <column>[federated.1xsytd21g7vnxy175364807stku8].[none:yearsinservice:qk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1xsytd21g7vnxy175364807stku8].[none:AdhocCluster:3:ok]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.1xsytd21g7vnxy175364807stku8].[none:service_rank__c:nk]</rows>
+        <cols>[federated.1xsytd21g7vnxy175364807stku8].[avg:yearsinservice:qk]</cols>
+      </table>
+      <simple-id uuid='{18613A60-3087-4262-9227-DFE095990D1E}' />
+    </worksheet>
     <worksheet name='Service rank vs time in service.'>
       <layout-options>
         <title>
@@ -2941,8 +3369,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1100' minheight='1100' sizing-mode='vscroll' />
           <zones>
-            <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='26' w='100000' x='0' y='0'>
-              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='25' param='vert' w='98400' x='800' y='1000'>
+            <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='30' w='100000' x='0' y='0'>
+              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='29' param='vert' w='98400' x='800' y='1000'>
                 <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='27750' id='13' mode='checkdropdown' name='Communication by branches' param='[federated.1xsytd21g7vnxy175364807stku8].[none:service_branch__c:nk]' w='16000' x='83200' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -3119,8 +3547,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1400' minheight='1400' sizing-mode='vscroll' />
           <zones>
-            <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='44' w='100000' x='0' y='0'>
-              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='43' param='vert' w='98400' x='800' y='1000'>
+            <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='48' w='100000' x='0' y='0'>
+              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='47' param='vert' w='98400' x='800' y='1000'>
                 <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='15875' id='10' mode='checkdropdown' name='Service branch emp by gender' param='[federated.1xsytd21g7vnxy175364807stku8].[none:gender__c:nk]' w='16000' x='83200' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -3261,8 +3689,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='950' minheight='950' sizing-mode='vscroll' />
           <zones>
-            <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='20' w='100000' x='0' y='0'>
-              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='19' param='vert' w='98400' x='800' y='1000'>
+            <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='24' w='100000' x='0' y='0'>
+              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='23' param='vert' w='98400' x='800' y='1000'>
                 <zone fixed-size='280' h='49000' id='18' is-fixed='true' name='Employment by gender' w='41200' x='800' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -3400,8 +3828,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1350' minheight='1350' sizing-mode='vscroll' />
           <zones>
-            <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='21' w='100000' x='0' y='0'>
-              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='20' param='vert' w='98400' x='800' y='1000'>
+            <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='25' w='100000' x='0' y='0'>
+              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='24' param='vert' w='98400' x='800' y='1000'>
                 <zone fixed-size='280' h='49000' id='3' is-fixed='true' name='Registration trends' w='41200' x='800' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -3533,8 +3961,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1200' minheight='1200' sizing-mode='vscroll' />
           <zones>
-            <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='25' w='100000' x='0' y='0'>
-              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='24' param='vert' w='98400' x='800' y='1000'>
+            <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='29' w='100000' x='0' y='0'>
+              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='28' param='vert' w='98400' x='800' y='1000'>
                 <zone fixed-size='280' h='49000' id='13' is-fixed='true' name='Service men by branch' w='49200' x='800' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -3618,6 +4046,44 @@
       </viewpoint>
       <simple-id uuid='{C6EB7A57-E550-4D3A-A28E-4E1C0709F400}' />
     </window>
+    <window class='worksheet' maximized='true' name='Service rank Vs Years in service. (2)'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='2' param='[federated.1xsytd21g7vnxy175364807stku8].[none:AdhocCluster:3:ok]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight>
+          <color-one-way>
+            <field>[federated.1xsytd21g7vnxy175364807stku8].[none:AdhocCluster:3:ok]</field>
+            <field>[federated.1xsytd21g7vnxy175364807stku8].[none:service_branch__c:nk]</field>
+            <field>[federated.1xsytd21g7vnxy175364807stku8].[none:service_rank__c:nk]</field>
+            <field>[federated.1xsytd21g7vnxy175364807stku8].[none:yearsinservice:qk]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+      <simple-id uuid='{B8B955F2-80A5-4716-BE70-15165A4BB28B}' />
+    </window>
     <window class='worksheet' name='Average time service men register for services'>
       <cards>
         <edge name='left'>
@@ -3642,6 +4108,7 @@
       <viewpoint>
         <highlight>
           <color-one-way>
+            <field>[federated.1xsytd21g7vnxy175364807stku8].[none:AdhocCluster:1:ok]</field>
             <field>[federated.1xsytd21g7vnxy175364807stku8].[none:reg_afterservice_years:qk]</field>
             <field>[federated.1xsytd21g7vnxy175364807stku8].[none:service_rank__c:nk]</field>
           </color-one-way>
@@ -3649,7 +4116,39 @@
       </viewpoint>
       <simple-id uuid='{66261402-C78B-4CF3-94D6-8651DDDF80EF}' />
     </window>
-    <window class='worksheet' maximized='true' name='Service branch emp by gender'>
+    <window class='worksheet' name='Average time service men register for services (2)'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight>
+          <color-one-way>
+            <field>[federated.1xsytd21g7vnxy175364807stku8].[none:AdhocCluster:1:ok]</field>
+            <field>[federated.1xsytd21g7vnxy175364807stku8].[none:reg_afterservice_years:qk]</field>
+            <field>[federated.1xsytd21g7vnxy175364807stku8].[none:service_rank__c:nk]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+      <simple-id uuid='{1872E208-1A34-4087-84AC-2A6C2DD4A40E}' />
+    </window>
+    <window class='worksheet' name='Service branch emp by gender'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -4609,6 +5108,133 @@
       8+eZmhin194iEM8S8emMn7uE0apw4849ErlBFK3H1KWX6W3cQA/maW7VabZ7dJpbRNODxIJe
       cicucnIwTqvRoDA8zNL8PB6tx5bhYer0CbRWhYXV8sP4X3vttb4efpBlUMkOOo0SV96/wdQL
       r1JIPrqYqKtNLr99heGpFxh7Qoc9NyEFIHmm+f8d9dmN0SqDugAAAABJRU5ErkJggg==
+    </thumbnail>
+    <thumbnail height='192' name='Average time service men register for services (2)' width='192'>
+      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
+      QmCC
     </thumbnail>
     <thumbnail height='192' name='Average years in service' width='192'>
       iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAACXBIWXMAAA7DAAAOwwHHb6hk
@@ -9168,6 +9794,139 @@
       64/vcn6ij6XdGtnhDJ/fmWEw9yEA0WiUzz77rKs//CBVoPeWZrNBJGLSbNo4jk1tb4Of3XjE
       t7/3bZKWhYaD7eq4dg3b1cFtYpgWhm7g2A10w8BDQ9d1XNum3rSJWQYNGyzTwDQj1OoNDF1H
       x6PueHh2AyuWxDINarUapmn60vAcBxIAwqnmbwFOjIwzcQNoyQAAAABJRU5ErkJggg==
+    </thumbnail>
+    <thumbnail height='192' name='Service rank Vs Years in service. (2)' width='192'>
+      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
+      v8DCxwAAAABJRU5ErkJggg==
     </thumbnail>
     <thumbnail height='192' name='Service rank vs time in service.' width='192'>
       iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAACXBIWXMAAA7DAAAOwwHHb6hk
