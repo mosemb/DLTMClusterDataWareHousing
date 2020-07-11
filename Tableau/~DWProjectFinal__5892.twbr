@@ -2821,17 +2821,7 @@
     <worksheet name='Sheet 24'>
       <table>
         <view>
-          <datasources>
-            <datasource caption='client_fact_ft (Multiple Connections)' name='federated.1xsytd21g7vnxy175364807stku8' />
-          </datasources>
-          <datasource-dependencies datasource='federated.1xsytd21g7vnxy175364807stku8'>
-            <column caption='Client Hiring Dt Id (Client!Hiring!Dt)' datatype='string' name='[client_hiring_dt_id (client!hiring!dt)]' role='dimension' type='nominal' />
-            <column caption='Datdifconfirstart' datatype='integer' name='[datdifconfirstart]' role='measure' type='quantitative' />
-            <column caption='Difsubmitconfirmed' datatype='integer' name='[difsubmitconfirmed]' role='measure' type='quantitative' />
-            <column-instance column='[client_hiring_dt_id (client!hiring!dt)]' derivation='None' name='[none:client_hiring_dt_id (client!hiring!dt):nk]' pivot='key' type='nominal' />
-            <column-instance column='[datdifconfirstart]' derivation='Sum' name='[sum:datdifconfirstart:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[difsubmitconfirmed]' derivation='Sum' name='[sum:difsubmitconfirmed:qk]' pivot='key' type='quantitative' />
-          </datasource-dependencies>
+          <datasources />
           <aggregation value='true' />
         </view>
         <style>
@@ -2840,35 +2830,19 @@
           </style-rule>
         </style>
         <panes>
-          <pane selection-relaxation-option='selection-relaxation-allow'>
+          <pane id='1' selection-relaxation-option='selection-relaxation-allow'>
             <view>
               <breakdown value='auto' />
             </view>
-            <mark class='Automatic' />
-            <encodings>
-              <lod column='[federated.1xsytd21g7vnxy175364807stku8].[none:client_hiring_dt_id (client!hiring!dt):nk]' />
-            </encodings>
-          </pane>
-          <pane id='1' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1xsytd21g7vnxy175364807stku8].[sum:datdifconfirstart:qk]'>
-            <view>
-              <breakdown value='auto' />
-            </view>
-            <mark class='Automatic' />
-            <encodings>
-              <lod column='[federated.1xsytd21g7vnxy175364807stku8].[none:client_hiring_dt_id (client!hiring!dt):nk]' />
-            </encodings>
-          </pane>
-          <pane id='2' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1xsytd21g7vnxy175364807stku8].[sum:difsubmitconfirmed:qk]'>
-            <view>
-              <breakdown value='auto' />
-            </view>
-            <mark class='Automatic' />
-            <encodings>
-              <lod column='[federated.1xsytd21g7vnxy175364807stku8].[none:client_hiring_dt_id (client!hiring!dt):nk]' />
-            </encodings>
+            <mark class='Shape' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='size' value='0.60000002384185791' />
+              </style-rule>
+            </style>
           </pane>
         </panes>
-        <rows>([federated.1xsytd21g7vnxy175364807stku8].[sum:datdifconfirstart:qk] + [federated.1xsytd21g7vnxy175364807stku8].[sum:difsubmitconfirmed:qk])</rows>
+        <rows />
         <cols />
       </table>
       <simple-id uuid='{673CA0C1-B04B-4FEB-97BE-A781FD8C120A}' />
@@ -4217,7 +4191,7 @@
       <active id='-1' />
       <simple-id uuid='{C8FB88E1-672C-4E1A-83C4-A28D2EF9016A}' />
     </window>
-    <window class='worksheet' name='Communication by branches'>
+    <window class='worksheet' maximized='true' name='Communication by branches'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -4245,7 +4219,7 @@
       </cards>
       <simple-id uuid='{8F07AED5-D6C3-47A8-B888-5E97CAA943C0}' />
     </window>
-    <window class='worksheet' maximized='true' name='Sheet 24'>
+    <window class='worksheet' name='Sheet 24'>
       <cards>
         <edge name='left'>
           <strip size='160'>
