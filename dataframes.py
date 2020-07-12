@@ -55,7 +55,7 @@ spark.sql(''' Select hires.hired, bio.service_rank__c ,
 
 #Account create date by month of the year
 spark.sql( ''' SELECT count(id) , 
-               Extract(Month From create_ddate) as month 
+               month(create_ddate) as month 
                From  dfAct_sql  
                group by month 
                ORDER BY month asc ''' 
@@ -63,11 +63,11 @@ spark.sql( ''' SELECT count(id) ,
 
 
 #Registration for services by year
-#spark.sql( """SELECT count(id) , 
-#Extract(Year From create_ddate) as year_registered 
-#              From  dfAct_sql  
-#              group by year_registered
-#              ORDER BY year_registered  """).show()
+spark.sql( """SELECT count(id) , 
+           year(create_ddate) as year_registered 
+           From  dfAct_sql  
+           group by year_registered
+           ORDER BY year_registered  """).show()
 
 #Hired by Service branch
 spark.sql(""" Select count(hires.id) as hired,bio.service_branch__c 
