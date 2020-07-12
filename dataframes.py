@@ -91,7 +91,7 @@ spark.sql(""" Select count(hires.id) as Not_hired,bio.service_branch__c
 spark.sql(""" Select count(hires.id) as hired,bio.service_rank__c
               From dfHire_sql hires 
               inner join dfBio_sql bio on bio.id = hires.id
-              Where hires.hired = 0
+              Where hires.hired = 1
               group by bio.service_rank__c
               order by hired desc
               """).show()
