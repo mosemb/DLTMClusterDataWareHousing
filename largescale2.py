@@ -202,14 +202,14 @@ train_data,test_data=dffeatures.randomSplit([0.75,0.25])
 #Random forest
 def randomforest(label, features, numTrees):
     """ takes in labels, features and number of trees"""
-	random_forest = RandomForestClassifier(labelCol=label, featuresCol=features, numTrees=numTrees)
-	return random_forest
+    random_forest = RandomForestClassifier(labelCol=label, featuresCol=features, numTrees=numTrees)
+    return random_forest
 
 #Random forest fit function 
 def random_forestfit(randf,train_data):
     """ Takes in a dataframe, and a random forest model """
-	model= randf.fit(train_data)
-	return model
+    model= randf.fit(train_data)
+    return model
  
 
 # Make predictions.
