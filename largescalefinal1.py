@@ -8,6 +8,7 @@ from pyspark.ml import Pipeline
 from pyspark.ml.feature import StringIndexer, VectorIndexer, OneHotEncoder, Word2Vec, FeatureHasher 
 from pyspark.ml.feature import StandardScaler, VectorAssembler 
 from pyspark.ml.clustering import KMeans 
+from pyspark.sql.types import *
 from pyspark.ml import Pipeline
 from pyspark.sql.functions import split, regexp_replace
 from pyspark.sql.types import StringType, IntegerType
@@ -137,22 +138,29 @@ dfspark.select('hired').distinct().show()
 # The data types of the data frame 
 print(" ")
 print("The data types of the data frame. We need to convert them to indexes \
-      vectors and then assemble into features, scale then apply to Machine learning algorithms. They accept only vectors" )
+ vectors and then assemble into features, scale then apply to Machine learning algorithms. They accept only vectors" )
 print(" ") 
 print (dfspark.dtypes)
 print(" ")
 #Transform the data frame categorical columns to indexes using the StringIndexer method. 
-indexers = [StringIndexer(inputCol=i, outputCol=i+"Index").fit(dfspark) \
-            for i in list(set(dfspark.columns)- set(['S_years','R_years','Resume_Tips','Resume_OnFile','Client','HHUSA_hire','responsive__c','Created_Linkedin','Occupation','Educ'])) ]
-pipeline = Pipeline(stages=indexers)
-dfspark = pipeline.fit(dfspark).transform(dfspark)
 
+columns = [ 'Client_Type','Service_R','Service_B' ,'Com_Method', 'active__c']
 
-#One hot encode the converted columns
-encoder = OneHotEncoder(inputCols=["Service_BIndex", "Com_MethodIndex","active__cIndex", "Service_RIndex", "Client_TypeIndex"],
-                       outputCols=["Service_BIndexVec", "Com_MethodIndexVec","active__cIndexVec", "Service_RIndexVec", "Client_TypeIndexVec"])
-modelOne = encoder.fit(dfspark)
-dfspark = modelOne.transform(dfspark)
+# The index of string vlaues multiple columns
+indexers = [
+    StringIndexer(inputCol=c, outputCol="{0}_indexed".format(c))
+    for c in columns
+]
+
+# The encode of indexed vlaues multiple columns
+encoders = [OneHotEncoder(dropLast=False,inputCol=indexer.getOutputCol(),
+            outputCol="{0}_encoded".format(indexer.getOutputCol())) 
+    for indexer in indexers
+]
+
+pipeline = Pipeline(stages=indexers + encoders)
+model=pipeline.fit(dfspark)
+dfspark = model.transform(dfspark)
 
 
 
@@ -166,7 +174,9 @@ modelw = word2Vec.fit(dfspark)
 dfspark = modelw.transform(dfspark)
 
 # We can now put our newly created feature vectors  into one feature vector using the vectorizer. 
-assembler2 = VectorAssembler(inputCols=['Resume_Tips','Resume_OnFile','Client','HHUSA_hire','responsive__c','Created_Linkedin','active__cIndexVec','Service_RIndexVec','Client_TypeIndexVec','Com_MethodIndexVec','Service_BIndexVec','EducVec'],outputCol="vecfeatures")
+elements = ['S_years', 'R_years','Resume_Tips','Resume_OnFile', 'Client','HHUSA_hire','responsive__c', 'Created_Linkedin', 'Client_Type_indexed_encoded','Service_R_indexed_encoded','Service_B_indexed_encoded','Com_Method_indexed_encoded', 'active__c_indexed_encoded']
+
+assembler2 = VectorAssembler(inputCols= elements,outputCol="vecfeatures")
 dfspark = assembler2.transform(dfspark)
 
 
