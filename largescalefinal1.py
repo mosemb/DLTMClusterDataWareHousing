@@ -15,7 +15,7 @@ from pyspark.sql.types import StringType, IntegerType
 from pyspark.sql.functions import col, regexp_replace, split, udf
 from pyspark.ml.classification import DecisionTreeClassifier, RandomForestClassifier
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator 
-#import copy
+
 
 # Initialize SparkSession
 spark = SparkSession \
@@ -143,21 +143,21 @@ print(" ")
 print (dfspark.dtypes)
 print(" ")
 #Transform the data frame categorical columns to indexes using the StringIndexer method. 
-
 columns = [ 'Client_Type','Service_R','Service_B' ,'Com_Method', 'active__c']
 
-# The index of string vlaues multiple columns
+# Index the categorical columns
 indexers = [
-    StringIndexer(inputCol=c, outputCol="{0}_indexed".format(c))
-    for c in columns
+    StringIndexer(inputCol=i, outputCol="{0}_indexed".format(i))
+    for i in columns
 ]
 
-# The encode of indexed vlaues multiple columns
+# Convert them to vectors 
 encoders = [OneHotEncoder(dropLast=False,inputCol=indexer.getOutputCol(),
             outputCol="{0}_encoded".format(indexer.getOutputCol())) 
     for indexer in indexers
 ]
 
+# Put everything in a pipeline and transform the dataset. 
 pipeline = Pipeline(stages=indexers + encoders)
 model=pipeline.fit(dfspark)
 dfspark = model.transform(dfspark)
@@ -185,6 +185,10 @@ scaler2 = StandardScaler(inputCol="vecfeatures", outputCol="features")
 scalerModel = scaler2.fit(dfspark)
 dfspark = scalerModel.transform(dfspark)
 
+print("")
+print("Transformed dataset")  
+print(dfspark.dtypes)
+print("")
 #Train test split
 train_data,test_data=dfspark.select('features','hired').randomSplit([0.7,0.3])
 
@@ -195,7 +199,8 @@ model1 = decision_tree.fit(train_data)
 pred = model1.transform(test_data)
 
 #Check the new columns of the dataframe 
-pred.columns
+print("Predicted columns and the hired column")
+print (pred.select('prediction','hired').show())
 
 
 # Now lets evaluate the algorithm performance
@@ -212,7 +217,7 @@ def evaluate_algo(df,label,Algorithm_name  ):
 evaluate_algo(pred,'hired','Decision Tree')
 
 #Compare with another machine learning algorithm Random forests 
-print(" ")
+print("")
 random_forest = RandomForestClassifier(labelCol='hired', featuresCol='features', numTrees=28)
 model2= random_forest.fit(train_data)
 predrand = model2.transform(test_data)
@@ -220,6 +225,8 @@ predrand = model2.transform(test_data)
 #Columns predicted for random forests
 predrand.columns
 
+print("Predicted columns and the hired column")
+print (predrand.select('prediction','hired').show())
 #Evaluate the performance of random forests
 evaluate_algo(predrand,'hired','Random Forests')
 
@@ -235,7 +242,7 @@ dfsparkcopy = funchash.transform(dfsparkcopy)
 
 def cluster(k,df,features):
     """ Takes in k as an int, the dataframe, and features """
-    kmeans = KMeans(k=k, seed=1)  # 2 clusters here
+    kmeans = KMeans(k=k, seed=1)  
     model = kmeans.fit(df.select(features))
     return model
 
