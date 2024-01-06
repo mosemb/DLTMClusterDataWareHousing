@@ -1,1 +1,1 @@
-This folder contains projects I did for the large scale computing course. In this folder we have specifically the spark project, where some tools of Big Data are shown in action. 
+This folder contains projects I did for the Data Warehousing course I did for my Masters Degree in Computer Science. In this folder we have specifically the spark project, data visualization with Tableau, and other Big Data Tools are shown in action. Principles of Data Warehousing are shown in action as well.  
